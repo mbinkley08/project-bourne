@@ -1,0 +1,3 @@
+-- V1__init.sql
+-- Phase 0 placeholder. Schema migrations begin in Phase 1.
+-- Flyway requires at least one migration file to run cleanly.
