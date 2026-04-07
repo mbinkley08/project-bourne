@@ -46,6 +46,8 @@ project-bourne/
 
 **Definition of done:** `docker compose up` starts all services. Auth flow works. Health checks pass. CI is green on first push.
 
+**Issue ordering note (discovered during implementation):** Environment config (`.env.example` — originally sequenced last in Phase 0) is a prerequisite to the full stack being runnable, not a cleanup item. Spring Boot's OAuth2 auto-configuration validates that `GOOGLE_CLIENT_ID` is non-empty at startup and crashes the process if it isn't. Without a `.env` file providing placeholder values, the backend container exits immediately. In practice, the `.env.example` issue should be completed before or alongside the "all services start with one command" issue, not after it.
+
 ---
 
 ### Phase 1 — Core Data Layer

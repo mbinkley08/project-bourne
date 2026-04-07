@@ -53,6 +53,14 @@ cp .env.example .env
 docker compose up
 ```
 
+**Windows (Git Bash) note:** Git Bash automatically converts Unix-style paths (e.g., `/app`) to Windows paths before passing them to programs. This breaks `docker run` commands that pass Linux paths via flags like `-w /app`. Prefix any such command with `MSYS_NO_PATHCONV=1` to disable the conversion:
+
+```bash
+MSYS_NO_PATHCONV=1 docker run --rm -v "C:/path/to/dir:/app" -w /app node:20-alpine npm install
+```
+
+This does not affect `docker compose up` — only standalone `docker run` commands that include Linux path arguments.
+
 | Service | URL |
 |---|---|
 | Frontend | http://localhost:3000 |
@@ -85,6 +93,8 @@ project-bourne/
 | [`planning/plan.md`](planning/plan.md) | Roadmap and phase breakdown |
 | [`planning/architecture.md`](planning/architecture.md) | Full system architecture |
 | [`planning/adr/`](planning/adr/) | Architecture Decision Records |
+| [`planning/github.md`](planning/github.md) | Repo conventions, branching strategy, commit standards |
+| [GitHub Project Board](https://github.com/users/mbinkley08/projects/1) | Live work tracker — tickets, status, sprint progress |
 
 ---
 
@@ -97,6 +107,14 @@ Built to demonstrate what disciplined software engineering looks like in practic
 - AI features are force-multipliers with validated, structured output — not vibe coding
 - Security is first-class: user career data is sensitive
 - Services communicate only over HTTP APIs — boundaries enforced by architecture, not by the repo
+
+---
+
+## Project Board
+
+Work is tracked publicly on GitHub Projects — tickets, status, and progress are all visible.
+
+**[View the Project Bourne board →](https://github.com/users/mbinkley08/projects/1)**
 
 ---
 

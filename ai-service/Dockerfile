@@ -2,14 +2,11 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# System dependencies for Playwright (headless browser for job posting ingestion)
-RUN apt-get update && apt-get install -y \
-    chromium \
-    && rm -rf /var/lib/apt/lists/*
+# Phase 2: Playwright + Chromium will be added here for headless job posting ingestion
+# Not installed in Phase 0 — ai-service only needs FastAPI + LLM client at this stage
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN playwright install chromium --with-deps
 
 COPY . .
 
