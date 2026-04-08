@@ -24,3 +24,4 @@ ADRs in `adr/coding/` cover implementation-level decisions.
 |---|---|---|---|
 | [ADR-C001](coding/ADR-C001-jwt-storage.md) | JWT storage: httpOnly cookie vs localStorage | Accepted | 2026-04-05 |
 | [ADR-C002](coding/ADR-C002-playwright-base-image.md) | ai-service Phase 2 Dockerfile: official Playwright base image | Accepted | 2026-04-07 |
+| [ADR-C003](coding/ADR-C003-jwt-signing-algorithm.md) | JWT signing algorithm: RS256 over HS256 | Accepted | 2026-04-07 |

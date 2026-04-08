@@ -52,6 +52,17 @@ management:
 ai-service:
   url: ${AI_SERVICE_URL:http://localhost:8000}
 
+# JWT — RS256 signing. Keys stored as base64-encoded DER (no PEM headers).
+# Private key: signs tokens. Never distributed. AWS Secrets Manager in production.
+# Public key: verifies tokens. AWS Secrets Manager in production.
+jwt:
+  private-key: ${JWT_PRIVATE_KEY}
+  public-key: ${JWT_PUBLIC_KEY}
+  expiration-seconds: ${JWT_EXPIRATION_SECONDS:86400}
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+
 # Structured JSON logging for observability
 logging:
   pattern:
