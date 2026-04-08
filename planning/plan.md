@@ -255,6 +255,7 @@ Getting job posting content into the system is a harder problem than it appears.
   - Auth token handling audit (no tokens in URLs, no localStorage for JWTs)
 - Load testing — basic performance baseline (k6 or Locust)
 - `README.md` — complete, accurate, includes architecture diagram, local setup, deployment notes
+- Database migration rollback strategy — Flyway (community edition) does not support automatic rollbacks; forward-only migrations are the convention used throughout the project. Before production, define and document the rollback approach: whether that's a documented manual process, a scripted forward rollback migration, or an upgrade to Flyway Teams for native rollback support.
 
 **Definition of done:** App is live on a real domain. CI deploys on merge to main. Monitoring is active. Security scan is clean.
 
