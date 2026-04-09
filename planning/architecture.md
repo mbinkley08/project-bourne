@@ -199,7 +199,7 @@ learning_resources
 3. Google redirects back to Core API callback endpoint with auth code
 4. Core API exchanges auth code for Google user info
 5. Core API creates or retrieves user record in PostgreSQL
-6. Core API issues a signed JWT (HS256, short expiry + refresh token)
+6. Core API issues a signed JWT (RS256, short expiry)
 7. JWT returned to frontend as httpOnly cookie
 8. All subsequent API calls include JWT cookie automatically
 9. Core API validates JWT on every protected endpoint
@@ -251,7 +251,7 @@ One GitHub Actions workflow per service. All three are independent — a fronten
 **Pipeline stages per service:**
 1. Lint + static analysis
 2. Unit tests
-3. Integration tests (against real DB in CI, via Docker service containers)
+3. Integration tests (against real DB via Testcontainers — spins up PostgreSQL inside the test JVM, no external service container needed)
 4. Build Docker image
 5. Push to container registry (ECR)
 6. Deploy to environment (staging on PR merge, production on release tag)
