@@ -12,21 +12,6 @@ jobs:
   test-and-build:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_DB: projectbourne_test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - uses: actions/checkout@v4
 
@@ -37,16 +22,20 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Run tests
+      - name: Lint and static analysis
+        working-directory: ./backend
+        run: mvn compile checkstyle:check spotbugs:check -B
+
+      - name: Unit tests
         working-directory: ./backend
         run: mvn test -B
+
+      - name: Integration tests
+        working-directory: ./backend
+        run: mvn failsafe:integration-test failsafe:verify -B
         env:
-          TEST_DB_URL: jdbc:postgresql://localhost:5432/projectbourne_test
-          TEST_DB_USERNAME: postgres
-          TEST_DB_PASSWORD: postgres
           GOOGLE_CLIENT_ID: test-client-id
           GOOGLE_CLIENT_SECRET: test-client-secret
 
-      - name: Build
-        working-directory: ./backend
-        run: mvn package -DskipTests -B
+      - name: Build Docker image
+        run: docker build -t project-bourne-backend ./backend
