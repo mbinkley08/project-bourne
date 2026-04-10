@@ -25,7 +25,7 @@ This platform does all of it:
 Three services, clean boundaries, one repo.
 
 | Service | Stack | Responsibility |
-|---|---|---|
+| --- | --- | --- |
 | `backend` | Java 21 / Spring Boot 3 | Core API — auth, data, business logic, orchestration |
 | `ai-service` | Python 3.12 / FastAPI | Intelligence layer — all LLM calls, skills extraction, resume tailoring, interview prep |
 | `frontend` | React 18 / TypeScript / Vite | User interface |
@@ -47,7 +47,7 @@ cd project-bourne
 
 # Copy and fill in environment variables
 cp .env.example .env
-# Edit .env — add GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ANTHROPIC_API_KEY, JWT_SECRET
+# Edit .env — add GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ANTHROPIC_API_KEY, JWT_PRIVATE_KEY, JWT_PUBLIC_KEY
 
 # Start everything
 docker compose up
@@ -62,7 +62,7 @@ MSYS_NO_PATHCONV=1 docker run --rm -v "C:/path/to/dir:/app" -w /app node:20-alpi
 This does not affect `docker compose up` — only standalone `docker run` commands that include Linux path arguments.
 
 | Service | URL |
-|---|---|
+| --- | --- |
 | Frontend | http://localhost:3000 |
 | Core API | http://localhost:8080 |
 | API Docs (Swagger) | http://localhost:8080/swagger-ui.html |
@@ -88,7 +88,7 @@ project-bourne/
 ## Planning Docs
 
 | Document | Description |
-|---|---|
+| --- | --- |
 | [`planning/about.md`](planning/about.md) | What this is, who it's for, why it exists |
 | [`planning/plan.md`](planning/plan.md) | Roadmap and phase breakdown |
 | [`planning/architecture.md`](planning/architecture.md) | Full system architecture |
