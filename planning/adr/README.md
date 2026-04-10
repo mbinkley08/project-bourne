@@ -26,3 +26,4 @@ ADRs in `adr/coding/` cover implementation-level decisions.
 | [ADR-C002](coding/ADR-C002-playwright-base-image.md) | ai-service Phase 2 Dockerfile: official Playwright base image | Accepted | 2026-04-07 |
 | [ADR-C003](coding/ADR-C003-jwt-signing-algorithm.md) | JWT signing algorithm: RS256 over HS256 | Accepted | 2026-04-07 |
 | [ADR-C004](coding/ADR-C004-checkstyle-spotbugs.md) | Checkstyle + SpotBugs for lint and static analysis | Accepted | 2026-04-09 |
+| [ADR-C005](coding/ADR-C005-ruff-python-linting.md) | ruff over flake8 for Python linting | Accepted | 2026-04-09 |

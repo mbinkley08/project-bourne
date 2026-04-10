@@ -137,9 +137,40 @@ Changing `node-version: '20'` to `node-version: '24'` only affects what Node ver
 
 ---
 
+## Python CI Pattern (`ai-service`)
+
+Split dependencies into two requirements files:
+
+```
+requirements.txt       # runtime deps (FastAPI, httpx, anthropic, etc.)
+requirements-dev.txt   # dev-only deps (ruff, pytest)
+```
+
+Install both in CI, neither in the Docker image:
+
+```yaml
+- name: Install dependencies
+  working-directory: ./ai-service
+  run: |
+    pip install -r requirements.txt
+    pip install -r requirements-dev.txt
+
+- name: Build Docker image
+  run: docker build -t project-bourne-ai-service ./ai-service
+```
+
+The Dockerfile only copies and installs `requirements.txt` — linters and test runners never end up in the production image.
+
+### `cache: pip` vs `cache-dependency-path`
+
+For Python, `cache: pip` is sufficient — pip's cache is keyed automatically on the requirements files found. You don't need to specify `cache-dependency-path` the way you do for npm.
+
+---
+
 ## Project Bourne Usage
 
 - Each service (`backend`, `ai-service`, `frontend`) has its own workflow scoped to its folder
 - Pipelines are structured identically from day one so splitting to separate repos later is copy-paste, not a rewrite
 - Backend workflow uses a `services:` Postgres sidecar alongside Testcontainers (redundant but harmless; will clean up when Testcontainers is the single source of truth)
 - Frontend uses `--passWithNoTests` so CI passes before tests are written; flag becomes a no-op as tests are added — the pipeline shape never needs to change
+- `ai-service` uses `requirements-dev.txt` to keep linter/test tools out of the Docker image
