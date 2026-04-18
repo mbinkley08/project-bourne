@@ -1,6 +1,6 @@
 # Docker Compose
 
-**Issue covered in:** #6 (PostgreSQL + Redis), #7 (Full stack)
+**Issue covered in:** #6 (PostgreSQL + Redis), #7 (Full stack), #14 (Environment config)
 
 ---
 
@@ -43,12 +43,16 @@ environment:
 ### Volumes
 Persists data outside the container lifecycle. Without a volume, everything in the container is wiped when it stops.
 
+Service-level mount (inside the service definition):
 ```yaml
 volumes:
   - postgres_data:/var/lib/postgresql/data  # named volume
+```
 
+Top-level declaration (at the bottom of the file):
+```yaml
 volumes:
-  postgres_data:   # declared at the bottom of the file
+  postgres_data:
 ```
 
 ### Networks
@@ -104,6 +108,8 @@ depends_on:
 ## Common Gotchas
 
 **`.env` file variables** — Compose automatically reads a `.env` file in the same directory. Variables are available as `${VAR_NAME}` in the compose file. If a variable is missing, Compose warns and substitutes a blank string — which can cause downstream failures (e.g., Spring Boot refusing to start with an empty OAuth2 client ID).
+
+**Silent env var dependencies** — If a service reads an env var from `application.yml` (or equivalent config) that has a default value, and docker-compose never explicitly sets it, the service will silently use the default. This works locally but hides a real dependency. Any env var that would need to be changed for staging or production should be explicitly set in docker-compose (using `${VAR:default}` syntax) so it's visible and overridable. Example: `FRONTEND_URL` had a default of `http://localhost:3000` in `application.yml` but wasn't in docker-compose at all — it worked by accident and would have been an invisible misconfiguration in production.
 
 **Service name vs container name** — The service name (e.g., `postgres`) is how other services reach it on the network. The container name (e.g., `projectbourne-postgres-1`) is what shows up in `docker ps`.
 

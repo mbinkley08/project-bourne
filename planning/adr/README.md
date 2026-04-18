@@ -11,7 +11,7 @@ ADRs in `adr/coding/` cover implementation-level decisions.
 |---|---|---|---|
 | [ADR-001](ADR-001-mono-repo.md) | Mono-repo vs multi-repo | Accepted | 2026-04-05 |
 | [ADR-002](ADR-002-tech-stack.md) | Tech stack selection | Accepted | 2026-04-05 |
-| ADR-003 | Domain taxonomy design | Pending | — |
+| [ADR-003](ADR-003-domain-taxonomy.md) | Domain taxonomy design | Accepted | 2026-04-17 |
 | ADR-004 | Job posting ingestion strategy | Pending | — |
 | ADR-005 | Match scoring algorithm | Pending | — |
 | ADR-006 | LLM provider selection | Pending | — |
