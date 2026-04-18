@@ -29,7 +29,7 @@ public class DomainService {
         if (!domainRepository.existsById(domainId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Domain not found");
         }
-        return subDomainRepository.findByDomain_IdOrderByNameAsc(domainId).stream()
+        return subDomainRepository.findByDomainIdOrderByNameAsc(domainId).stream()
                 .map(sd -> new SubDomainResponse(sd.getId(), sd.getName(), domainId))
                 .toList();
     }

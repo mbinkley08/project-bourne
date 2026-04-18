@@ -73,7 +73,7 @@ class DomainServiceTest {
         SubDomain subDomain = subDomain(domain);
 
         when(domainRepository.existsById(domainId)).thenReturn(true);
-        when(subDomainRepository.findByDomain_IdOrderByNameAsc(domainId)).thenReturn(List.of(subDomain));
+        when(subDomainRepository.findByDomainIdOrderByNameAsc(domainId)).thenReturn(List.of(subDomain));
 
         List<SubDomainResponse> result = domainService.findSubDomainsByDomainId(domainId);
 
@@ -86,7 +86,7 @@ class DomainServiceTest {
     void findSubDomainsByDomainId_noSubDomains_returnsEmptyList() {
         UUID domainId = UUID.randomUUID();
         when(domainRepository.existsById(domainId)).thenReturn(true);
-        when(subDomainRepository.findByDomain_IdOrderByNameAsc(domainId)).thenReturn(List.of());
+        when(subDomainRepository.findByDomainIdOrderByNameAsc(domainId)).thenReturn(List.of());
 
         List<SubDomainResponse> result = domainService.findSubDomainsByDomainId(domainId);
 
