@@ -1,6 +1,6 @@
 # Testcontainers
 
-**Issue covered in:** #10 (BackendApplicationTests)
+**Issues covered in:** #10 (BackendApplicationTests), #17, #18
 
 ---
 
@@ -28,7 +28,7 @@ The tradeoff is speed — container startup adds ~5–10 seconds. For integratio
 ### `@Testcontainers`
 Activates the Testcontainers JUnit 5 extension on the test class. Manages container lifecycle (start/stop) automatically.
 
-```java
+```text
 @Testcontainers
 class BackendApplicationTests { ... }
 ```
@@ -36,7 +36,7 @@ class BackendApplicationTests { ... }
 ### `@Container`
 Declares a container field. If `static`, the container starts once for all tests in the class (faster). If non-static, it starts fresh for each test (slower, more isolated).
 
-```java
+```text
 @Container
 static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine")
         .withDatabaseName("projectbourne_test")
@@ -53,7 +53,7 @@ The container picks a **random port** on the host. Spring's datasource config ne
 ### `@DynamicPropertySource`
 Runs before the Spring ApplicationContext starts and registers properties dynamically. The container is already running at this point, so `postgres.getJdbcUrl()` returns the real URL with the real port.
 
-```java
+```text
 @DynamicPropertySource
 static void configureDataSource(DynamicPropertyRegistry registry) {
     registry.add("spring.datasource.url", postgres::getJdbcUrl);
@@ -77,7 +77,7 @@ This is why `@DynamicPropertySource` wins even if a static URL is hardcoded in a
 
 ## Full Example
 
-```java
+```text
 @SpringBootTest
 @ActiveProfiles("test")
 @Testcontainers
@@ -105,11 +105,23 @@ class BackendApplicationTests {
 
 ---
 
-## Running Locally (Windows Docker limitation)
+## Running Locally (Windows Docker Desktop 4.x limitation)
 
-Testcontainers needs Docker. On Windows with IntelliJ, it works fine because IntelliJ connects to Docker Desktop directly.
+**IT tests do NOT run locally on Windows with Docker Desktop 4.x (confirmed on 4.67.0).**
 
-Running `mvn test` inside a Docker container (as part of a multi-stage build or manual `docker run`) fails because the container can't reach Docker to spin up child containers — this is the Docker-in-Docker problem. Don't try to run Testcontainers tests inside a Docker container locally. Run them through IntelliJ or CI (GitHub Actions has Docker available by default).
+Docker Desktop 4.x changed its internal architecture — the `docker_engine` named pipe and the TCP endpoint at `2375` are now served by a proxy layer that returns `Status 400` with an empty body to `docker-java` (the library Testcontainers uses). The Docker CLI (`docker ps`) still works because it has its own connection logic that understands the proxy. Testcontainers does not.
+
+Attempted fixes that do NOT work:
+- Enabling "Expose daemon on tcp://localhost:2375 without TLS" in Docker Desktop settings
+- Setting `docker.host=tcp://localhost:2375` in `~/.testcontainers.properties`
+- Setting `docker.host=npipe:////./pipe/docker_cli` — this pipe exists but returns 404 for `/info`
+- Restarting Docker Desktop and IntelliJ
+
+**Fix if you want IT tests locally:** Install Testcontainers Desktop (free) from `testcontainers.com/desktop`. It provides a working socket that bypasses the Docker Desktop proxy.
+
+**Project Bourne decision:** IT tests run in CI only. Unit tests (`*Test.java`) run locally. This is intentional — CI is Linux with native Docker, IT tests always pass there.
+
+Running `mvn test` inside a Docker container also fails (Docker-in-Docker problem). Always run tests through IntelliJ or CI.
 
 ---
 
