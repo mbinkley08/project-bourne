@@ -27,3 +27,4 @@ ADRs in `adr/coding/` cover implementation-level decisions.
 | [ADR-C003](coding/ADR-C003-jwt-signing-algorithm.md) | JWT signing algorithm: RS256 over HS256 | Accepted | 2026-04-07 |
 | [ADR-C004](coding/ADR-C004-checkstyle-spotbugs.md) | Checkstyle + SpotBugs for lint and static analysis | Accepted | 2026-04-09 |
 | [ADR-C005](coding/ADR-C005-ruff-python-linting.md) | ruff over flake8 for Python linting | Accepted | 2026-04-09 |
+| [ADR-C006](coding/ADR-C006-spring-data-jpa-query-annotation.md) | @Query over derived queries for relationship navigation | Accepted | 2026-04-17 |

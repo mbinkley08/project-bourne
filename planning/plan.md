@@ -28,7 +28,7 @@ project-bourne/
 
 ---
 
-### Phase 0 — Foundation
+### Phase 0 — Foundation ✓ COMPLETE
 **Goal:** Nothing runs, but everything is set up right. The skeleton the whole project hangs on.
 
 **Deliverables:**
@@ -50,10 +50,10 @@ project-bourne/
 
 ---
 
-### Phase 1 — Core Data Layer
+### Phase 1 — Core Data Layer (IN PROGRESS)
 **Goal:** The structural backbone of the app. Users exist. Rich profiles exist. Job domains are modeled. Applications can be tracked. REST API semantics are correct throughout.
 
-#### 1a — Domain Taxonomy
+#### 1a — Domain Taxonomy ✓ COMPLETE
 
 Before any user data is modeled, the domain taxonomy must be designed. Skills, match scoring, interview prep, and learning recommendations are all domain-specific — a confidence rating on "Java" is irrelevant to a teacher, and "classroom management" is irrelevant to a software engineer.
 

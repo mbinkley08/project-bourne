@@ -84,6 +84,8 @@ Run in CI: `mvn checkstyle:check -B`
 
 ## Common Gotchas
 
+**`MethodName` rule bans underscores — conflicts with Spring Data JPA derived queries.** Spring Data uses `_` to navigate relationships in method names (e.g., `findByDomain_IdOrderByNameAsc`). Checkstyle's `MethodName` rule (`^[a-z][a-zA-Z0-9]*$`) rejects any underscore. Fix: use `@Query` with a compliant method name instead. See `spring-data-jpa-query.md` for the full pattern.
+
 **Checkstyle runs on source, not bytecode.** Lombok-generated code is invisible to Checkstyle — it only sees what you typed. This is usually fine, but it means Checkstyle won't flag issues in generated getters/setters/builders.
 
 **Built-in Sun/Google configs require Javadoc on public methods.** For an application (not a library), this is noise. Use a custom config file to include only the rules that add value.

@@ -80,6 +80,7 @@ The backbone of the system. Owns all structured data, business logic, auth, and 
 - OpenAPI/Swagger documentation auto-generated from code annotations
 - Database migrations via Flyway — no schema changes outside of migration files
 - Async calls to AI Service for non-blocking user experience on expensive operations
+- Response DTOs are Java records in a dedicated `dto` package — entities are never returned directly from controllers
 
 **Port:** 8080 (local), service name `backend` in Docker Compose
 
