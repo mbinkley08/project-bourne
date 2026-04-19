@@ -53,14 +53,15 @@ project-bourne/
 ### Phase 1 — Core Data Layer (IN PROGRESS)
 **Goal:** The structural backbone of the app. Users exist. Rich profiles exist. Job domains are modeled. Applications can be tracked. REST API semantics are correct throughout.
 
-#### 1a — Domain Taxonomy ✓ COMPLETE
+#### 1a — Domain Taxonomy & Skills Taxonomy ✓ COMPLETE
 
 Before any user data is modeled, the domain taxonomy must be designed. Skills, match scoring, interview prep, and learning recommendations are all domain-specific — a confidence rating on "Java" is irrelevant to a teacher, and "classroom management" is irrelevant to a software engineer.
 
 **Deliverables:**
 - Domain entity — top-level job domains (Software Engineering, Education, Finance, Healthcare, Data & Analytics, Marketing, etc.)
 - Sub-domain entity — e.g., Software Engineering → Backend, Frontend, Full Stack, DevOps, QA
-- Domain-specific skills taxonomy — curated seed data per domain/sub-domain; user can add custom skills
+- Domain-specific skills taxonomy — curated seed data per domain/sub-domain; user can add custom skills (✓ issue #18)
+- Skills modeled as `@ManyToMany` with sub-domains via `skill_sub_domain` join table — a skill exists once, associated to multiple sub-domains (ADR-C007)
 - Users can belong to multiple domains (e.g., Software + Education — exactly the kind of multi-domain profile this app was built to handle)
 - All downstream features (match scoring, skills gap, interview prep, learning recs) are domain-aware from day one
 - ADR-003: domain taxonomy design — flat vs. hierarchical, seed data strategy, extensibility

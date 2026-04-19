@@ -28,3 +28,4 @@ ADRs in `adr/coding/` cover implementation-level decisions.
 | [ADR-C004](coding/ADR-C004-checkstyle-spotbugs.md) | Checkstyle + SpotBugs for lint and static analysis | Accepted | 2026-04-09 |
 | [ADR-C005](coding/ADR-C005-ruff-python-linting.md) | ruff over flake8 for Python linting | Accepted | 2026-04-09 |
 | [ADR-C006](coding/ADR-C006-spring-data-jpa-query-annotation.md) | @Query over derived queries for relationship navigation | Accepted | 2026-04-17 |
+| [ADR-C007](coding/ADR-C007-many-to-many-skill-subdomain.md) | Skills taxonomy: @ManyToMany join table over duplicate skill rows | Accepted | 2026-04-19 |

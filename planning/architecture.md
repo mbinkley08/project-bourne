@@ -149,9 +149,25 @@ users
 │   preferred_location, salary_min, work_arrangement
 └── linked to: skills, applications
 
-skills
-├── id, user_id, name, category, confidence_level (1-5), created_at
-└── confidence_level: user-rated; drives learning recommendations
+domain
+├── id, name, created_at
+└── top-level job domain (Software Engineering, Education, Finance, etc.)
+
+sub_domain
+├── id, domain_id, name, created_at
+└── sub-category within a domain (Backend, DevOps, K-12, etc.)
+
+skill
+├── id, name, curated (boolean), created_at
+└── curated=true: app-seeded; curated=false: user-defined (custom, per-user — Phase 1b)
+
+skill_sub_domain
+├── skill_id, sub_domain_id (composite PK)
+└── many-to-many join; a skill exists once and associates to multiple sub-domains
+
+user_skill (Phase 1b)
+├── id, user_id, skill_id, confidence_level (1-5), created_at
+└── confidence_level: user-rated; drives match scoring and learning recommendations
 
 job_listings
 ├── id, external_id, source, title, company_id, location, remote_type,
