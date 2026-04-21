@@ -6,6 +6,8 @@
 
 ### Local Development
 
+**Port assignment:** Project Bourne runs on port **3001**. ScoreLab occupies port 3000 (Google OAuth is configured for 3000). Project Bourne's docker-compose maps the frontend to `3001:80` accordingly.
+
 All secrets are stored in a `.env` file at the repo root. Docker Compose reads this file automatically. `.env` is gitignored — `.env.example` documents every required variable with instructions for generating values.
 
 Required secrets for local dev:
